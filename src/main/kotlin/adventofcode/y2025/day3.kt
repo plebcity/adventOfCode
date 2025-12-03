@@ -17,14 +17,15 @@ fun main() {
 
     val part2 = input.sumOf { line ->
         var startIndex = 0
-        line.foldIndexed("") { index, acc, char ->
-            if (startIndex <= index && acc.length != 12 && char.digitToInt() == line.substring(index, line.length - (12 - (acc.length + 1))).map { it.digitToInt() }.max()) {
-                startIndex = index
-                acc + char.toString()
-            } else {
-                acc
-            }
-        }.toLong()
+        var result = ""
+        (0..11).reversed().forEach {
+            val stringToSearchForMax = line.substring(startIndex, line.length - it).map { it.digitToInt() }
+            val maxNumber = stringToSearchForMax.max()
+            result = result + maxNumber
+            startIndex += (stringToSearchForMax.indexOf(maxNumber) + 1)
+        }
+
+        result.toLong()
     }
     println("Part2: $part2")
 }
