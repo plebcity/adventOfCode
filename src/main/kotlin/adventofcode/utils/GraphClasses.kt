@@ -6,7 +6,7 @@ data class Point(val rowIndex: Long, val columnIndex: Long)
 data class PointInDirection(val point: Point, val direction: Direction)
 data class PointInDirectionWithLine(val point: Point, val direction: Direction, val line: Int)
 data class PointWithInt(val point: Point, val value: Int)
-data class PointWithChar(val point: Point, val value: Char)
+data class PointWithChar(val point: Point, var value: Char)
 
 enum class Direction {
     UP,
@@ -65,6 +65,10 @@ fun <T> List<List<T>>.getPointOrNull(point: Point): T? =
 fun <T> List<List<T>>.getNeighbours(point: Point): List<T> = Direction.entries.toTypedArray().mapNotNull {
     getPointOrNull(point.getNextPoint(it))
 }
+
+fun <T> List<List<T>>.getNeighboursWithDiagonals(point: Point): List<T> = Direction.entries.toTypedArray().mapNotNull {
+    getPointOrNull(point.getNextPoint(it))
+} + DiagonalDirection.entries.toTypedArray().mapNotNull { getPointOrNull(point.getNextPointDiagonally(it)) }
 
 fun <T> List<List<T>>.getNeighboursDiagonally(point: Point): List<Pair<T?, DiagonalDirection>> = DiagonalDirection.entries.toTypedArray().map {
     getPointOrNull(point.getNextPointDiagonally(it)) to it
