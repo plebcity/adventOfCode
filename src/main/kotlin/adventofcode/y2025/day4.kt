@@ -9,11 +9,7 @@ fun main() {
     val lines = readInput("2025/day4/input.txt")
     val grid = lines.mapIndexed { rowIndex, row -> row.mapIndexed { columnIndex, ch -> PointWithChar(Point(rowIndex.toLong(), columnIndex.toLong()), ch) } }
     val part1 = grid.flatten().count { point ->
-        if (point.value == '@') {
-            grid.getNeighboursWithDiagonals(point.point).count { it.value == '@' } < 4
-        } else {
-            false
-        }
+        point.value == '@' && grid.getNeighboursWithDiagonals(point.point).count { it.value == '@' } < 4
     }
 
     println("Part 1: $part1")
