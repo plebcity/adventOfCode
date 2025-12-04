@@ -1,7 +1,5 @@
 package adventofcode.utils
 
-import kotlin.math.abs
-
 data class Point(val rowIndex: Long, val columnIndex: Long)
 data class PointInDirection(val point: Point, val direction: Direction)
 data class PointInDirectionWithLine(val point: Point, val direction: Direction, val line: Int)
@@ -128,3 +126,9 @@ fun List<List<PointWithChar>>.countCorners(pointWithChar: PointWithChar): Long {
 
 fun Point.getManhattenDistance(point: Point): Pair<Long, Long> =
     (point.rowIndex - rowIndex) to (point.columnIndex - columnIndex)
+
+fun List<String>.toPointsWithCharGrid(): List<List<PointWithChar>> =
+    mapIndexed { rowIndex, row -> row.mapIndexed { columnIndex, ch -> PointWithChar(Point(rowIndex.toLong(), columnIndex.toLong()), ch) } }
+
+fun List<String>.toPointsWithIntGrid(): List<List<PointWithInt>> =
+    mapIndexed { rowIndex, row -> row.mapIndexed { columnIndex, ch -> PointWithInt(Point(rowIndex.toLong(), columnIndex.toLong()), ch.digitToInt()) } }

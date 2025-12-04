@@ -1,13 +1,12 @@
 package adventofcode.y2025
 
-import adventofcode.utils.Point
-import adventofcode.utils.PointWithChar
 import adventofcode.utils.getNeighboursWithDiagonals
 import adventofcode.utils.readInput
+import adventofcode.utils.toPointsWithCharGrid
 
 fun main() {
     val lines = readInput("2025/day4/input.txt")
-    val grid = lines.mapIndexed { rowIndex, row -> row.mapIndexed { columnIndex, ch -> PointWithChar(Point(rowIndex.toLong(), columnIndex.toLong()), ch) } }
+    val grid = lines.toPointsWithCharGrid()
     val part1 = grid.flatten().count { it.value == '@' && grid.getNeighboursWithDiagonals(it.point).count { it.value == '@' } < 4 }
 
     println("Part 1: $part1")
