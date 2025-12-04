@@ -21,13 +21,9 @@ fun main() {
     var part2 = 0
     while (true) {
         val result = grid.flatten().count { point ->
-            if (point.value == '@') {
-                if (grid.getNeighboursWithDiagonals(point.point).count { it.value == '@' } < 4) {
-                    point.value = '.'
-                    true
-                } else {
-                    false
-                }
+            if (point.value == '@' && grid.getNeighboursWithDiagonals(point.point).count { it.value == '@' } < 4) {
+                point.value = '.'
+                true
             } else {
                 false
             }
