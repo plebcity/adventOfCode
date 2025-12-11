@@ -64,6 +64,14 @@ fun <T> List<List<T>>.getNeighbours(point: Point): List<T> = Direction.entries.t
     getPointOrNull(point.getNextPoint(it))
 }
 
+fun <T> List<List<T>>.getNeigboursInDirection(point: Point, directions: List<Direction>): List<T> = Direction.entries.toTypedArray().filter { it in directions }.mapNotNull {
+    getPointOrNull(point.getNextPoint(it))
+}
+
+fun <T> List<List<T>>.getNeigboursInDiagonalDirection(point: Point, directions: List<DiagonalDirection>): List<T> = DiagonalDirection.entries.toTypedArray().filter { it in directions }.mapNotNull {
+    getPointOrNull(point.getNextPointDiagonally(it))
+}
+
 fun <T> List<List<T>>.getNeighboursWithDiagonals(point: Point): List<T> = Direction.entries.toTypedArray().mapNotNull {
     getPointOrNull(point.getNextPoint(it))
 } + DiagonalDirection.entries.toTypedArray().mapNotNull { getPointOrNull(point.getNextPointDiagonally(it)) }
